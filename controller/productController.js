@@ -53,3 +53,21 @@ exports.deleteProducts = async(req,res)=>{
         res.status(500).json(error)
     }
 }
+
+exports.editProducts = async(req,res)=>{
+    const {id} = req.params 
+
+    const {name,price,description,gst} = req.body
+
+    try {
+        const updateProduct = await products.findByIdAndUpdate(id,{name,price,description,gst},{new:true})
+
+        await updateProduct.save()
+        res.status(200).json(updateProduct)
+        
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).json(error)
+    }
+}
