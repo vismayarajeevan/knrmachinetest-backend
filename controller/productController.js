@@ -40,3 +40,16 @@ exports.getProducts = async(req,res)=>{
         res.status(500).json(error)
     }
 }
+
+exports.deleteProducts = async(req,res)=>{
+    const {id}= req.params
+
+    try {
+        const deleteprdt = await products.findByIdAndDelete({_id:id})
+        res.status(200).json(deleteprdt)
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).json(error)
+    }
+}
