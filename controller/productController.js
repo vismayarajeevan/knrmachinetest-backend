@@ -2,8 +2,28 @@ const products = require('../model/productModel')
 
 
 exports.addProducts = async(req,res)=>{
-    console.log('inside add');
+    
 
-    res.status(200).json("add")
+    const {name,price,description,gst} = req.body
+
+    try {
+
+        const existingProduct = await products.findOne({name})
+
+        if(existingProduct){
+            res.status(404).json('Existing product..Please add new one!!!')
+        }else{
+            const newProduct = new products({
+                name,price,description,gst
+            })
+            await newProduct.save()
+            res.status(200).json(newProduct)
+        }
+        
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).json(error)
+    }
     
 }
