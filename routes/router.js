@@ -6,5 +6,7 @@ const router = express.Router()
 
 
 router.post("/addProduct",productController.addProducts)
+router.get("/getProduct",productController.getProducts)
+
 
 module.exports = router

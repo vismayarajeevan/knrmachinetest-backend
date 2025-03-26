@@ -27,3 +27,16 @@ exports.addProducts = async(req,res)=>{
     }
     
 }
+
+exports.getProducts = async(req,res)=>{
+    try {
+
+        const getallProducts = await products.find()
+        res.status(200).json(getallProducts)
+        
+    } catch (error) {
+        console.log(error);
+        
+        res.status(500).json(error)
+    }
+}
